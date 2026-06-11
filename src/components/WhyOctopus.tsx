@@ -6,26 +6,26 @@ type Cell = string | boolean
 type Row = {
   feature: string
   octopus: Cell
-  ocoya: Cell
-  buffer: Cell
+  bots: Cell
+  copy: Cell
 }
 
 const rows: Row[] = [
   // The differentiators that matter come first.
-  { feature: 'Strategies validated against a random-entry control (out-of-sample)', octopus: true, ocoya: false, buffer: false },
-  { feature: 'Shows you its LOSING strategies, not just the winners', octopus: true, ocoya: false, buffer: false },
-  { feature: 'Watch the AI agents debate every decision (no black box)', octopus: true, ocoya: false, buffer: false },
-  { feature: 'Paper-first by default; live needs your explicit confirmation', octopus: true, ocoya: false, buffer: 'Limited' },
-  { feature: 'One-tap kill switch halts everything (even on a VPS)', octopus: true, ocoya: false, buffer: false },
-  { feature: 'No performance promises · no "while you sleep" claims', octopus: true, ocoya: false, buffer: false },
+  { feature: 'Strategies validated against a random-entry control (out-of-sample)', octopus: true, bots: false, copy: false },
+  { feature: 'Shows you its LOSING strategies, not just the winners', octopus: true, bots: false, copy: false },
+  { feature: 'Watch the AI agents debate every decision (no black box)', octopus: true, bots: false, copy: false },
+  { feature: 'Paper-first by default; live needs your explicit confirmation', octopus: true, bots: false, copy: 'Limited' },
+  { feature: 'One-tap kill switch halts everything (even on a VPS)', octopus: true, bots: false, copy: false },
+  { feature: 'No performance promises · no "while you sleep" claims', octopus: true, bots: false, copy: false },
 
   // Table stakes / mechanics.
-  { feature: 'Non-custodial — your broker, your keys, your machine', octopus: true, ocoya: false, buffer: false },
-  { feature: 'Risk governor: per-trade risk % + daily-loss cap', octopus: true, ocoya: 'Limited', buffer: 'Limited' },
-  { feature: 'Self-improving — but every new idea is re-validated first', octopus: true, ocoya: false, buffer: false },
-  { feature: 'Live terminal deck + web dashboard', octopus: true, ocoya: 'Limited', buffer: 'Limited' },
-  { feature: 'Self-hosted & open — you run it, nothing phones home', octopus: true, ocoya: false, buffer: false },
-  { feature: 'Brokers supported (MT5 / Alpaca / Binance)', octopus: '3', ocoya: 'Varies', buffer: '1' },
+  { feature: 'Non-custodial — your broker, your keys, your machine', octopus: true, bots: false, copy: false },
+  { feature: 'Risk governor: per-trade risk % + daily-loss cap', octopus: true, bots: 'Limited', copy: 'Limited' },
+  { feature: 'Self-improving — but every new idea is re-validated first', octopus: true, bots: false, copy: false },
+  { feature: 'Live terminal deck + web dashboard', octopus: true, bots: 'Limited', copy: 'Limited' },
+  { feature: 'Self-hosted & open — you run it, nothing phones home', octopus: true, bots: false, copy: false },
+  { feature: 'Brokers supported (MT5 / Alpaca / Binance)', octopus: '3', bots: 'Varies', copy: '1' },
 ]
 
 const headlines = [
@@ -130,8 +130,8 @@ export default function WhyOctopus() {
                       className={`border-b border-octopus-cream/5 ${i < 6 ? 'bg-octopus-gold/[0.02]' : ''}`}>
                     <td className="px-5 py-3 text-octopus-cream/85">{r.feature}</td>
                     <td className="px-5 py-3 text-center"><CellValue value={r.octopus} /></td>
-                    <td className="px-5 py-3 text-center"><CellValue value={r.ocoya} /></td>
-                    <td className="px-5 py-3 text-center"><CellValue value={r.buffer} /></td>
+                    <td className="px-5 py-3 text-center"><CellValue value={r.bots} /></td>
+                    <td className="px-5 py-3 text-center"><CellValue value={r.copy} /></td>
                   </tr>
                 ))}
               </tbody>

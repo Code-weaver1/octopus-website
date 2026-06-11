@@ -19,11 +19,11 @@
   h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #F0EDE8; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
   .subtitle { color: #6B6B75; font-size: 14px; margin-bottom: 48px; font-family: 'JetBrains Mono', monospace; }
   h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #F0EDE8; margin: 40px 0 16px; letter-spacing: -0.01em; }
-  h3 { font-size: 16px; font-weight: 600; color: #D4A574; margin: 24px 0 8px; }
   p { margin-bottom: 14px; }
-  ul, ol { margin: 0 0 14px 24px; }
+  ul { margin: 0 0 14px 24px; }
   li { margin-bottom: 6px; }
   strong { color: #F0EDE8; font-weight: 600; }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #D4A574; background: rgba(212,165,116,0.08); padding: 1px 6px; border-radius: 4px; }
   .highlight { background: rgba(212,165,116,0.08); border-left: 3px solid #D4A574; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
   .highlight p:last-child { margin-bottom: 0; }
   .back { display: inline-block; margin-bottom: 32px; color: #6B6B75; font-size: 13px; }
@@ -45,139 +45,41 @@
 <a href="/" class="back">&larr; Back to home</a>
 
 <h1>Privacy Policy</h1>
-<p class="subtitle">Last updated: April 13, 2026</p>
+<p class="subtitle">Last updated: June 11, 2026</p>
 
 <div class="highlight">
-<p><strong>Summary:</strong> Octopus collects only what it needs to operate your businesses autonomously. We store your account credentials encrypted, never sell your data, and you can delete everything at any time.</p>
+<p><strong>The short version:</strong> Octopus is self-hosted. Your trading data, broker keys, strategies, and results live <strong>on your own machine</strong> — not on our servers. We have no accounts, take no payments, and cannot see your trading. This website itself collects essentially nothing about you.</p>
 </div>
 
 <h2>1. Who We Are</h2>
-<p>Octopus ("we", "us", "our") is an autonomous AI business operating platform provided by Octopus Technologies. This policy explains how we collect, use, and protect your information when you use our platform, website, desktop application, and API (collectively, the "Service").</p>
-<p>For questions about this policy, contact us at <a href="mailto:privacy@theoctopusapp.com">privacy@theoctopusapp.com</a>.</p>
+<p>This policy covers <strong>theoctopusapp.com</strong> (the "Site") and the open-source Octopus software (the "Software"). Questions: <a href="mailto:contact@theoctopusapp.com">contact@theoctopusapp.com</a>.</p>
 
-<h2>2. Information We Collect</h2>
-
-<h3>2.1 Account Information</h3>
-<p>When you register, we collect:</p>
+<h2>2. The Software Runs on Your Machine</h2>
+<p>Octopus is downloaded and run by you, on your own computer or server. As a result:</p>
 <ul>
-  <li><strong>Email address</strong> — for authentication, verification, and communication</li>
-  <li><strong>Name</strong> — for display and personalization</li>
-  <li><strong>Password</strong> — stored as a bcrypt hash (we never store your plaintext password)</li>
-  <li><strong>Country, city, timezone</strong> — for proxy geo-matching and cycle scheduling</li>
+  <li>Your <strong>broker API keys are encrypted at rest on your machine</strong> (Fernet/AES) and are never transmitted to us.</li>
+  <li>Your strategies, signals, trades, paper-sim results, and logs are stored <strong>locally</strong> (under <code>~/.octopus/</code>). We have no access to them.</li>
+  <li>We do not operate a server that runs your trading, so we cannot and do not collect your trading activity, balances, or positions.</li>
 </ul>
+<p>If you enable the optional LLM features, the Software sends compact market context to the AI provider you configure (e.g. OpenRouter) using <strong>your own</strong> API key, under that provider's privacy policy. It never sends your broker credentials to the model.</p>
 
-<h3>2.2 Platform Credentials</h3>
-<p>When you connect external platforms (Twitter, Instagram, Facebook, MQL5, LinkedIn, TikTok), we collect:</p>
-<ul>
-  <li><strong>Session cookies</strong> — encrypted at rest using Fernet symmetric encryption</li>
-  <li><strong>Platform username</strong> — for display and session management</li>
-  <li><strong>Browser fingerprint data</strong> — screen dimensions, user agent, timezone (used to replicate your browser profile for automation)</li>
-</ul>
-<div class="highlight">
-<p>We never ask for or store your platform passwords. We only store session cookies that you explicitly provide through the desktop application's cookie capture flow.</p>
-</div>
+<h2>3. What This Website Collects</h2>
+<p>The Site is a static page hosted on Cloudflare Pages. We run no ad trackers and sell no data. Cloudflare may process standard, aggregated request logs (IP, user agent, timestamp) for security and basic analytics, per <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare's privacy policy</a>. We do not set advertising cookies.</p>
 
-<h3>2.3 Usage Data</h3>
-<p>We automatically collect:</p>
-<ul>
-  <li>Actions performed by the autonomous agent on your behalf (tool executions, posts made, engagement actions)</li>
-  <li>Revenue, conversion funnel events, and campaign performance metrics</li>
-  <li>Chat messages between you and the AI assistant</li>
-  <li>IP address and request metadata (for rate limiting and security)</li>
-</ul>
+<h2>4. If You Contact Us</h2>
+<p>If you email us or open a GitHub issue, we receive what you choose to send (e.g. your email address and message) and use it only to respond. GitHub issues are public — please don't include secrets.</p>
 
-<h3>2.4 Payment Information</h3>
-<p>We process payments through third-party providers (Pesapal, Flutterwave, PayPal). We store:</p>
-<ul>
-  <li>Transaction references, amounts, status, and payment method type</li>
-  <li>Provider-specific transaction IDs for reconciliation</li>
-</ul>
-<p>We <strong>do not</strong> store credit card numbers, mobile money PINs, or bank account details. These are handled entirely by the payment provider.</p>
+<h2>5. No Accounts, No Payments</h2>
+<p>The Software is free and self-hosted. We do not create user accounts, process payments, or store payment information. There is no subscription and no billing.</p>
 
-<h2>3. How We Use Your Information</h2>
-<ul>
-  <li><strong>To operate the Service</strong> — executing autonomous business actions on your connected platforms using your session credentials</li>
-  <li><strong>To improve AI decisions</strong> — the AI brain (Riley) uses your goals, metrics, and performance history to decide what actions to take each cycle</li>
-  <li><strong>To manage subscriptions</strong> — processing payments, enforcing tier limits, and sending billing-related communications</li>
-  <li><strong>To communicate with you</strong> — email verification, password resets, system notifications, and optional WhatsApp reports</li>
-  <li><strong>To ensure security</strong> — rate limiting, detecting abuse, and protecting platform integrity</li>
-</ul>
+<h2>6. Your Data, Your Control</h2>
+<p>Because your trading data stays on your device, you control it directly — delete <code>~/.octopus/</code> at any time to remove it. For any limited information we hold (e.g. an email you sent us), you may request access or deletion at <a href="mailto:contact@theoctopusapp.com">contact@theoctopusapp.com</a>.</p>
 
-<h2>4. Autonomous Actions on Your Behalf</h2>
-<div class="highlight">
-<p>Octopus performs automated actions on external platforms using credentials you provide. This includes posting content, engaging with other users (likes, comments, follows), checking seller dashboards, replying to messages, and scanning the web for business opportunities. These actions are taken <strong>on your behalf and under your authorization</strong>.</p>
-</div>
-<p>You can:</p>
-<ul>
-  <li>Disconnect any platform at any time to stop all automated actions on it</li>
-  <li>Set goals and constraints that guide what the AI chooses to do</li>
-  <li>Review all actions taken via the activity log in your dashboard</li>
-  <li>Enable safe mode to preview actions before they execute</li>
-</ul>
+<h2>7. Children's Privacy</h2>
+<p>The Software and Site are not directed to anyone under 18, and trading is not suitable for minors.</p>
 
-<h2>5. Data Storage and Security</h2>
-<ul>
-  <li><strong>Encryption at rest:</strong> Platform cookies are encrypted with Fernet (AES-128-CBC). Payment provider API keys are encrypted with a separate key.</li>
-  <li><strong>Password hashing:</strong> bcrypt with a cost factor of 12.</li>
-  <li><strong>JWT authentication:</strong> Tokens are signed with HMAC-SHA256, expire in 24 hours, and can be revoked on logout.</li>
-  <li><strong>Tenant isolation:</strong> Each user's data is stored in isolated directories with per-user database scoping.</li>
-  <li><strong>Network security:</strong> Per-user residential proxy assignments ensure your automation traffic does not originate from a shared IP pool.</li>
-  <li><strong>File permissions:</strong> Credential files and database files are restricted to owner-only access (chmod 600/700).</li>
-</ul>
-
-<h2>6. Data Sharing</h2>
-<p>We <strong>do not sell</strong> your personal data.</p>
-<p>We share data only in these limited circumstances:</p>
-<ul>
-  <li><strong>Payment providers</strong> (Pesapal, Flutterwave, PayPal) — your email, name, and transaction amount to process payments</li>
-  <li><strong>External platforms</strong> (Twitter, Instagram, etc.) — your session cookies are sent to these platforms to execute actions you authorized</li>
-  <li><strong>AI processing</strong> — your business context is processed by a locally-hosted AI model (Ollama). No data is sent to third-party AI services for autonomous cycle decisions.</li>
-  <li><strong>Legal obligations</strong> — if required by law, court order, or to protect our legal rights</li>
-</ul>
-
-<h2>7. Data Retention</h2>
-<ul>
-  <li><strong>Account data:</strong> Retained while your account is active. Deleted within 30 days of account deletion request.</li>
-  <li><strong>Activity logs:</strong> Retained for 90 days, then pruned automatically.</li>
-  <li><strong>Funnel/revenue data:</strong> Retained for 90 days (rolling).</li>
-  <li><strong>Chat messages:</strong> Retained while the session exists. You can delete sessions at any time.</li>
-  <li><strong>Payment records:</strong> Retained for 7 years for legal and tax compliance.</li>
-</ul>
-
-<h2>8. Your Rights</h2>
-<p>You have the right to:</p>
-<ul>
-  <li><strong>Access</strong> — request a copy of all data we hold about you</li>
-  <li><strong>Correct</strong> — update your account information through the Settings page</li>
-  <li><strong>Delete</strong> — request deletion of your account and all associated data</li>
-  <li><strong>Disconnect</strong> — remove any connected platform at any time, which immediately deletes stored cookies and stops automation</li>
-  <li><strong>Export</strong> — download your revenue, campaign, and activity data</li>
-  <li><strong>Restrict</strong> — pause automation on any or all platforms without deleting your account</li>
-</ul>
-<p>To exercise these rights, email <a href="mailto:privacy@theoctopusapp.com">privacy@theoctopusapp.com</a> or use the relevant controls in your dashboard.</p>
-
-<h2>9. Cookies and Tracking</h2>
-<p>The Octopus website uses no third-party tracking cookies, analytics services, or advertising pixels. We use only:</p>
-<ul>
-  <li>A JWT token stored in localStorage for authentication in the desktop app</li>
-  <li>Your server URL preference stored in localStorage</li>
-</ul>
-
-<h2>10. Children's Privacy</h2>
-<p>Octopus is not intended for use by anyone under 18 years of age. We do not knowingly collect information from children. If you believe a child has provided us with personal information, contact us and we will delete it.</p>
-
-<h2>11. International Data</h2>
-<p>Octopus is operated from Uganda. If you use the Service from outside Uganda, your information may be transferred to and processed in Uganda or other countries where our servers are located. By using the Service, you consent to this transfer.</p>
-
-<h2>12. Changes to This Policy</h2>
-<p>We may update this policy from time to time. We will notify you of material changes by email or through a notification in the platform. Continued use of the Service after changes constitutes acceptance of the updated policy.</p>
-
-<h2>13. Contact</h2>
-<p>For privacy-related questions or requests:</p>
-<ul>
-  <li>Email: <a href="mailto:privacy@theoctopusapp.com">privacy@theoctopusapp.com</a></li>
-  <li>Octopus Technologies, Kampala, Uganda</li>
-</ul>
+<h2>8. Changes &amp; Contact</h2>
+<p>We may update this policy; the "last updated" date reflects the current version. Reach us at <a href="mailto:contact@theoctopusapp.com">contact@theoctopusapp.com</a> or <a href="https://github.com/Code-weaver1/octopus" target="_blank" rel="noopener">github.com/Code-weaver1/octopus</a>.</p>
 
 </div>
 </body>
