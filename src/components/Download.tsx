@@ -1,8 +1,53 @@
+import { useState } from 'react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { TerminalSquare, Globe, Server, Download as DownloadIcon, Github } from 'lucide-react'
+import { TerminalSquare, Globe, Server, Download as DownloadIcon, Github, Apple, Monitor } from 'lucide-react'
 
 const REPO = 'https://github.com/Code-weaver1/octopus'
 const ZIP = `${REPO}/archive/refs/heads/main.zip`
+
+type OSKey = 'macos' | 'linux' | 'windows'
+
+const INSTALL: Record<OSKey, { label: string; icon: typeof Apple; shell: string; lines: { c?: string; g?: string; t?: string }[] }> = {
+  macos: {
+    label: 'macOS', icon: Apple, shell: 'Terminal',
+    lines: [
+      { c: '# 1 · clone & install' },
+      { g: 'git clone', t: ' https://github.com/Code-weaver1/octopus.git' },
+      { g: 'cd', t: ' octopus && ./install.sh' },
+      { c: '\n# 2 · guided setup (profile · key · brokers — paper first)' },
+      { t: 'octopus setup' },
+      { c: '\n# 3 · launch' },
+      { t: 'octopus deck', c: '   # live terminal dashboard' },
+      { t: 'octopus web', c: '    # browser → localhost:8899' },
+    ],
+  },
+  linux: {
+    label: 'Linux', icon: Monitor, shell: 'bash',
+    lines: [
+      { c: '# 1 · clone & install' },
+      { g: 'git clone', t: ' https://github.com/Code-weaver1/octopus.git' },
+      { g: 'cd', t: ' octopus && ./install.sh' },
+      { c: '\n# 2 · guided setup (profile · key · brokers — paper first)' },
+      { t: 'octopus setup' },
+      { c: '\n# 3 · launch' },
+      { t: 'octopus deck', c: '   # live terminal dashboard' },
+      { t: 'octopus web', c: '    # browser → localhost:8899' },
+    ],
+  },
+  windows: {
+    label: 'Windows', icon: Monitor, shell: 'PowerShell',
+    lines: [
+      { c: '# 1 · clone (use PowerShell, not cmd)' },
+      { g: 'git clone', t: ' https://github.com/Code-weaver1/octopus.git' },
+      { g: 'cd', t: ' octopus' },
+      { c: '\n# 2 · install (venv + deps + adds octopus to PATH)' },
+      { t: 'powershell -ExecutionPolicy Bypass -File install.ps1' },
+      { c: '\n# 3 · open a NEW terminal, then setup + launch' },
+      { t: 'octopus setup' },
+      { t: 'octopus deck', c: '   # or: octopus web' },
+    ],
+  },
+}
 
 const runWays = [
   {
@@ -27,6 +72,12 @@ const runWays = [
 
 export default function Download() {
   const { ref, isVisible } = useScrollReveal()
+  const [os, setOS] = useState<OSKey>(
+    typeof navigator !== 'undefined' && /Win/i.test(navigator.platform) ? 'windows'
+      : typeof navigator !== 'undefined' && /Linux/i.test(navigator.platform) ? 'linux'
+      : 'macos'
+  )
+  const active = INSTALL[os]
 
   return (
     <section id="download" className="py-24 sm:py-32 px-4 sm:px-6 lg:px-12 relative">
@@ -41,8 +92,8 @@ export default function Download() {
             Self-hosted, one command
           </h2>
           <p className="font-body text-base sm:text-lg text-octopus-muted max-w-xl mx-auto mt-4 sm:mt-6">
-            Runs on your machine — Linux, macOS, or a $5 VPS. Paper-first by default;
-            connect a live broker only when you decide to.
+            Runs on your machine — macOS, Linux, Windows, or a $5 VPS. Paper-first by
+            default; connect a live broker only when you decide to.
           </p>
 
           {/* Real download + source buttons */}
@@ -68,26 +119,41 @@ export default function Download() {
           </p>
         </div>
 
-        {/* Install — terminal card */}
+        {/* Install — OS-tabbed terminal card */}
         <div className="max-w-3xl mx-auto mt-10">
           <div className="rounded-2xl border border-white/[0.06] bg-octopus-ink/60 overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.05]">
-              <span className="w-3 h-3 rounded-full bg-octopus-gold/40" />
-              <span className="w-3 h-3 rounded-full bg-octopus-cream/15" />
-              <span className="w-3 h-3 rounded-full bg-octopus-cream/15" />
-              <span className="font-mono text-[10px] tracking-[0.25em] text-octopus-muted/50 uppercase ml-2">
-                install
+            <div className="flex items-center gap-1 px-3 py-2.5 border-b border-white/[0.05]">
+              {(Object.keys(INSTALL) as OSKey[]).map((key) => {
+                const Icon = INSTALL[key].icon
+                const sel = key === os
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setOS(key)}
+                    className={`inline-flex items-center gap-1.5 font-mono text-[11px] tracking-wide px-3 py-1.5 rounded-lg transition-all duration-300 ${
+                      sel
+                        ? 'bg-octopus-gold/10 text-octopus-gold border border-octopus-gold/20'
+                        : 'text-octopus-muted/50 hover:text-octopus-cream/80 border border-transparent'
+                    }`}
+                  >
+                    <Icon size={13} /> {INSTALL[key].label}
+                  </button>
+                )
+              })}
+              <span className="font-mono text-[10px] tracking-[0.25em] text-octopus-muted/30 uppercase ml-auto pr-1">
+                {active.shell}
               </span>
             </div>
             <pre className="font-mono text-sm leading-relaxed p-5 sm:p-6 overflow-x-auto text-octopus-cream/90">
-<span className="text-octopus-muted/50"># 1 · clone &amp; install</span>{'\n'}
-<span className="text-octopus-gold">git clone</span> https://github.com/Code-weaver1/octopus.git{'\n'}
-<span className="text-octopus-gold">cd</span> octopus &amp;&amp; ./install.sh{'\n\n'}
-<span className="text-octopus-muted/50"># 2 · guided setup (profile · key · brokers — paper first)</span>{'\n'}
-octopus setup{'\n\n'}
-<span className="text-octopus-muted/50"># 3 · launch</span>{'\n'}
-octopus deck    <span className="text-octopus-muted/50">  # live terminal dashboard</span>{'\n'}
-octopus web     <span className="text-octopus-muted/50">  # browser → localhost:8899</span>
+{active.lines.map((ln, i) => (
+  <span key={i}>
+    {ln.c && !ln.t && !ln.g && <span className="text-octopus-muted/50">{ln.c}</span>}
+    {ln.g && <span className="text-octopus-gold">{ln.g}</span>}
+    {ln.t && <span>{ln.t}</span>}
+    {ln.c && (ln.t || ln.g) && <span className="text-octopus-muted/50">{ln.c}</span>}
+    {'\n'}
+  </span>
+))}
             </pre>
           </div>
           <p className="font-mono text-xs text-octopus-muted/40 text-center mt-3">
