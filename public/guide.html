@@ -101,11 +101,17 @@
 <p><strong>You hold the keys.</strong> It runs on your machine, trades your broker, never takes custody of your funds, and never goes live without your explicit confirmation.</p>
 
 <h2 id="s1"><span class="n">1</span>Install (5 minutes)</h2>
-<p>Requirements: Python 3.11+, on Linux, macOS, or a small Linux VPS.</p>
+<p>Requirements: Python 3.11+ and git. Runs on <strong>macOS, Linux, Windows, or a small VPS.</strong></p>
+<p><strong>macOS / Linux</strong> &mdash; Terminal:</p>
 <pre><code><span class="g">git clone</span> https://github.com/Code-weaver1/octopus.git
 <span class="g">cd</span> octopus
 ./install.sh        <span class="c"># venv + deps + puts `octopus` on your PATH</span></code></pre>
 <p>If <code>octopus</code> isn&rsquo;t found afterward, add the line <code>install.sh</code> prints to your <code>~/.bashrc</code>.</p>
+<p><strong>Windows</strong> &mdash; use <strong>PowerShell</strong>, not <code>cmd</code> (the <code>.sh</code> script won&rsquo;t run there):</p>
+<pre><code><span class="g">git clone</span> https://github.com/Code-weaver1/octopus.git
+<span class="g">cd</span> octopus
+powershell -ExecutionPolicy Bypass -File install.ps1   <span class="c"># venv + deps + adds octopus to PATH</span></code></pre>
+<p>Then <strong>open a new terminal</strong> so PATH refreshes and run <code>octopus setup</code> (this session: <code>.\octopus setup</code>). Prefer Linux? Octopus also runs cleanly under <strong>WSL (Ubuntu)</strong> &mdash; follow the macOS/Linux steps inside WSL.</p>
 
 <h2 id="s2"><span class="n">2</span>First launch &amp; guided setup</h2>
 <p>The first time you run <code>octopus</code> (or <code>octopus deck</code>), a wizard runs automatically. Re-run any time with <code>octopus setup</code>. Five steps:</p>
