@@ -113,6 +113,14 @@
 powershell -ExecutionPolicy Bypass -File install.ps1   <span class="c"># venv + deps + adds octopus to PATH</span></code></pre>
 <p>Then <strong>open a new terminal</strong> so PATH refreshes and run <code>octopus setup</code>. No need to change PowerShell&rsquo;s execution policy &mdash; <code>octopus</code> runs through <code>octopus.cmd</code>, which handles that. To run it in the same session, call the <code>.cmd</code> from the folder: <code>.\octopus.cmd setup</code> (the bare <code>.\octopus</code> won&rsquo;t work on Windows). Prefer Linux? Octopus also runs cleanly under <strong>WSL (Ubuntu)</strong> &mdash; follow the macOS/Linux steps inside WSL.</p>
 
+<div class="rule"><strong>Uninstalling.</strong> Octopus lives in two places: the repo folder (launcher + <code>.venv</code>) and <code>~/.octopus</code> (config + <strong>encrypted broker vault</strong>). The uninstaller removes the PATH entry and <code>.venv</code> but keeps <code>~/.octopus</code> unless you ask for a full wipe.</div>
+<pre><code><span class="c"># macOS / Linux</span>
+./uninstall.sh            <span class="c"># add --purge to also delete ~/.octopus</span>
+<span class="g">cd</span> .. && rm -rf octopus   <span class="c"># then remove the folder</span>
+
+<span class="c"># Windows (PowerShell)</span>
+powershell -ExecutionPolicy Bypass -File uninstall.ps1   <span class="c"># add -Purge for a full wipe</span></code></pre>
+
 <h2 id="s2"><span class="n">2</span>First launch &amp; guided setup</h2>
 <p>The first time you run <code>octopus</code> (or <code>octopus deck</code>), a wizard runs automatically. Re-run any time with <code>octopus setup</code>. Five steps:</p>
 <ol>
