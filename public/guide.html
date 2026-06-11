@@ -111,7 +111,7 @@
 <pre><code><span class="g">git clone</span> https://github.com/Code-weaver1/octopus.git
 <span class="g">cd</span> octopus
 powershell -ExecutionPolicy Bypass -File install.ps1   <span class="c"># venv + deps + adds octopus to PATH</span></code></pre>
-<p>Then <strong>open a new terminal</strong> so PATH refreshes and run <code>octopus setup</code> (this session: <code>.\octopus setup</code>). Prefer Linux? Octopus also runs cleanly under <strong>WSL (Ubuntu)</strong> &mdash; follow the macOS/Linux steps inside WSL.</p>
+<p>Then <strong>open a new terminal</strong> so PATH refreshes and run <code>octopus setup</code>. No need to change PowerShell&rsquo;s execution policy &mdash; <code>octopus</code> runs through <code>octopus.cmd</code>, which handles that. To run it in the same session, call the <code>.cmd</code> from the folder: <code>.\octopus.cmd setup</code> (the bare <code>.\octopus</code> won&rsquo;t work on Windows). Prefer Linux? Octopus also runs cleanly under <strong>WSL (Ubuntu)</strong> &mdash; follow the macOS/Linux steps inside WSL.</p>
 
 <h2 id="s2"><span class="n">2</span>First launch &amp; guided setup</h2>
 <p>The first time you run <code>octopus</code> (or <code>octopus deck</code>), a wizard runs automatically. Re-run any time with <code>octopus setup</code>. Five steps:</p>
