@@ -1,5 +1,8 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal'
-import { TerminalSquare, Globe, Server } from 'lucide-react'
+import { TerminalSquare, Globe, Server, Download as DownloadIcon, Github } from 'lucide-react'
+
+const REPO = 'https://github.com/Code-weaver1/octopus'
+const ZIP = `${REPO}/archive/refs/heads/main.zip`
 
 const runWays = [
   {
@@ -41,10 +44,31 @@ export default function Download() {
             Runs on your machine — Linux, macOS, or a $5 VPS. Paper-first by default;
             connect a live broker only when you decide to.
           </p>
+
+          {/* Real download + source buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <a
+              href={ZIP}
+              className="inline-flex items-center justify-center gap-2 bg-octopus-gold text-octopus-void font-body font-semibold px-7 py-3.5 rounded-full hover:bg-octopus-amber transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,165,116,0.3)]"
+            >
+              <DownloadIcon size={17} /> Download (.zip)
+            </a>
+            <a
+              href={REPO}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 border border-white/10 text-octopus-cream/80 font-body px-7 py-3.5 rounded-full hover:border-octopus-gold/30 hover:text-octopus-cream transition-all duration-300"
+            >
+              <Github size={17} /> View on GitHub
+            </a>
+          </div>
+          <p className="font-mono text-[11px] text-octopus-muted/40 mt-3">
+            unzip → <span className="text-octopus-gold/70">cd octopus-main &amp;&amp; ./install.sh</span> &nbsp;·&nbsp; or clone it below
+          </p>
         </div>
 
         {/* Install — terminal card */}
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto mt-10">
           <div className="rounded-2xl border border-white/[0.06] bg-octopus-ink/60 overflow-hidden">
             <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.05]">
               <span className="w-3 h-3 rounded-full bg-octopus-gold/40" />
