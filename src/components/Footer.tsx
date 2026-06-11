@@ -1,18 +1,17 @@
 const footerLinks = {
   Product: [
     { label: 'Features', href: '#features' },
+    { label: 'User Guide', href: '/guide' },
     { label: 'Pricing', href: '#pricing' },
-    { label: 'Download', href: '#download' },
-    { label: 'Get Started', href: '#signup' },
+    { label: 'Get it', href: '#download' },
   ],
   Company: [
-    { label: 'About', href: '#hero' },
-    { label: 'Careers', href: '#careers' },
-    { label: 'Contact', href: '/contact.html' },
+    { label: 'GitHub', href: 'https://github.com/Code-weaver1/octopus' },
+    { label: 'Contact', href: '/contact' },
   ],
   Legal: [
     { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Terms of Use', href: '/terms' },
   ],
 }
 

@@ -64,6 +64,7 @@ export default function Download() {
           </div>
           <p className="font-mono text-[11px] text-octopus-muted/40 mt-3">
             unzip → <span className="text-octopus-gold/70">cd octopus-main &amp;&amp; ./install.sh</span> &nbsp;·&nbsp; or clone it below
+            &nbsp;·&nbsp; new here? <a href="/guide" className="text-octopus-gold/80 hover:text-octopus-gold">read the User Guide →</a>
           </p>
         </div>
 

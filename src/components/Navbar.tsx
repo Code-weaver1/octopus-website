@@ -5,6 +5,7 @@ const navLinks = [
   { label: 'Features', href: '#features' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Why Octopus', href: '#why-octopus' },
+  { label: 'Guide', href: '/guide' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Get it', href: '#download' },
 ]
@@ -26,8 +27,9 @@ export default function Navbar() {
   }, [mobileOpen])
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
     setMobileOpen(false)
+    if (!href.startsWith('#')) return   // real page link (e.g. /guide) — navigate normally
+    e.preventDefault()
     const id = href.replace('#', '')
     const el = document.getElementById(id)
     if (el) {

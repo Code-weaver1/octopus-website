@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Guide — Octopus</title>
+<meta name="description" content="Octopus user guide — from your first launch to running an honest, self-improving trading desk at full tilt.">
+<link rel="icon" href="/octopus.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --gold:#D4A574; --teal:#3FD0C9; --green:#62C472; --red:#DC5A5A; --ink:#020204; --cream:#F0EDE8; --mut:#6B6B75; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ink); color: #c0bfca; font-family:'Outfit',sans-serif; font-size:15px; line-height:1.75; }
+  body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background: radial-gradient(800px 500px at 12% -5%, rgba(212,165,116,.07), transparent 60%),
+                radial-gradient(700px 600px at 100% 6%, rgba(63,208,201,.05), transparent 55%); }
+  a { color: var(--gold); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .top-bar { border-bottom:1px solid rgba(255,255,255,.04); padding:16px 24px; display:flex; align-items:center; gap:12px; position:sticky; top:0; background:rgba(2,2,4,.85); backdrop-filter:blur(10px); z-index:10; }
+  .top-bar svg { color: var(--gold); }
+  .top-bar span { font-family:'Syne',sans-serif; font-weight:800; letter-spacing:.15em; font-size:13px; color:var(--cream); }
+  .top-bar .grow { flex:1; }
+  .top-bar a.home { font-size:13px; color:var(--mut); }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 48px 24px 96px; }
+  h1 { font-family:'Syne',sans-serif; font-size:clamp(2.2rem,6vw,3.4rem); font-weight:800; color:var(--cream); letter-spacing:-.02em; line-height:1.05; }
+  .sub { color:var(--mut); font-size:15px; margin:10px 0 8px; font-family:'JetBrains Mono',monospace; }
+  h2 { font-family:'Syne',sans-serif; font-size:24px; font-weight:800; color:var(--cream); margin:56px 0 16px; letter-spacing:-.01em; scroll-margin-top:72px; padding-top:8px; border-top:1px solid rgba(255,255,255,.05); }
+  h2 .n { color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:18px; margin-right:10px; }
+  h3 { font-size:16px; font-weight:600; color:var(--gold); margin:28px 0 8px; }
+  p { margin-bottom:14px; }
+  ul,ol { margin:0 0 14px 22px; } li { margin-bottom:7px; }
+  strong { color:var(--cream); font-weight:600; }
+  code { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--gold); background:rgba(212,165,116,.09); padding:1px 6px; border-radius:4px; }
+  pre { background:#0b0b10; border:1px solid rgba(255,255,255,.07); border-radius:12px; padding:16px 18px; overflow-x:auto; margin:0 0 18px; }
+  pre code { background:none; color:#d8d6e0; padding:0; font-size:13px; line-height:1.7; }
+  pre .c { color:#5b6172; }  pre .g { color:var(--gold); }
+  table { width:100%; border-collapse:collapse; font-size:14px; margin:6px 0 20px; display:block; overflow-x:auto; }
+  th { text-align:left; color:var(--mut); font-weight:600; font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,.1); white-space:nowrap; }
+  td { padding:9px 12px; border-bottom:1px solid rgba(255,255,255,.05); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  td code, th code { white-space:nowrap; }
+  .box { border-radius:0 10px 10px 0; padding:14px 18px; margin:18px 0; font-size:14.5px; }
+  .box p:last-child { margin-bottom:0; }
+  .tip { background:rgba(63,208,201,.07); border-left:3px solid var(--teal); }
+  .rule { background:rgba(212,165,116,.09); border-left:3px solid var(--gold); }
+  .warn { background:rgba(220,90,90,.07); border-left:3px solid var(--red); }
+  .toc { background:#0b0b10; border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:22px 24px; margin:36px 0 8px; }
+  .toc .k { font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut); margin-bottom:14px; }
+  .toc ol { columns:2; column-gap:30px; margin-left:18px; font-size:14px; }
+  @media(max-width:560px){ .toc ol{columns:1;} }
+  .toc li { margin-bottom:8px; }
+  .foot { margin-top:64px; padding-top:24px; border-top:1px solid rgba(255,255,255,.05); color:var(--mut); font-size:13px; font-family:'JetBrains Mono',monospace; text-align:center; }
+  .foot .solo { color:var(--gold); letter-spacing:.2em; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="12" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <path d="M10 18 C6 22 4 28 6 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M16 18 C16 24 16 28 16 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M22 18 C26 22 28 28 26 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <circle cx="14" cy="11" r="1" fill="currentColor"/><circle cx="18" cy="11" r="1" fill="currentColor"/>
+  </svg>
+  <span>OCTOPUS</span>
+  <div class="grow"></div>
+  <a class="home" href="/">&larr; Home</a>
+  &nbsp;&nbsp;<a class="home" href="https://github.com/Code-weaver1/octopus" target="_blank" rel="noopener">GitHub</a>
+</div>
+
+<div class="wrap">
+<h1>User Guide</h1>
+<p class="sub">From your first launch to running an honest, self-improving desk at full tilt.</p>
+
+<div class="box rule"><p><strong>The one rule:</strong> nothing trades real money until it has proven itself — and only you can flip that switch. Internalize <em>paper-first, validated-or-it-doesn&rsquo;t-trade, small size when live</em>, and you&rsquo;ll get the maximum out of Octopus without losing money the way most automation users do.</p></div>
+
+<div class="toc">
+  <div class="k">Contents</div>
+  <ol>
+    <li><a href="#s0">The mindset</a></li>
+    <li><a href="#s1">Install (5 min)</a></li>
+    <li><a href="#s2">First launch &amp; setup</a></li>
+    <li><a href="#s3">First 10 minutes</a></li>
+    <li><a href="#s4">The deck, tab by tab</a></li>
+    <li><a href="#s5">The honesty engine</a></li>
+    <li><a href="#s6">Going autonomous (paper)</a></li>
+    <li><a href="#s7">Connecting brokers</a></li>
+    <li><a href="#s8">The intelligence loop</a></li>
+    <li><a href="#s9">Going live</a></li>
+    <li><a href="#s10">Run it 24/7 (VPS)</a></li>
+    <li><a href="#s11">The Wheel (options)</a></li>
+    <li><a href="#s12">Config &amp; commands</a></li>
+    <li><a href="#s13">A weekly routine</a></li>
+  </ol>
+</div>
+
+<h2 id="s0"><span class="n">0</span>The mindset</h2>
+<p>Octopus is different from every &ldquo;AI trading bot&rdquo; you&rsquo;ve seen. It is <strong>research + disciplined automation</strong>, not a money printer. The honest truth, baked into the tool: <strong>most strategies have no edge.</strong> Octopus is built to find the rare ones that hold up and to <em>tell you when something doesn&rsquo;t work</em>.</p>
+<p><strong>You hold the keys.</strong> It runs on your machine, trades your broker, never takes custody of your funds, and never goes live without your explicit confirmation.</p>
+
+<h2 id="s1"><span class="n">1</span>Install (5 minutes)</h2>
+<p>Requirements: Python 3.11+, on Linux, macOS, or a small Linux VPS.</p>
+<pre><code><span class="g">git clone</span> https://github.com/Code-weaver1/octopus.git
+<span class="g">cd</span> octopus
+./install.sh        <span class="c"># venv + deps + puts `octopus` on your PATH</span></code></pre>
+<p>If <code>octopus</code> isn&rsquo;t found afterward, add the line <code>install.sh</code> prints to your <code>~/.bashrc</code>.</p>
+
+<h2 id="s2"><span class="n">2</span>First launch &amp; guided setup</h2>
+<p>The first time you run <code>octopus</code> (or <code>octopus deck</code>), a wizard runs automatically. Re-run any time with <code>octopus setup</code>. Five steps:</p>
+<ol>
+  <li><strong>Profile</strong> — pick a local handle.</li>
+  <li><strong>Risk disclosures</strong> — type <code>I AGREE</code>.</li>
+  <li><strong>OpenRouter API key</strong> — powers the AI features. <em>Optional</em>; rules, backtests, paper trading and dashboards all work without it.</li>
+  <li><strong>Connect a platform</strong> <em>(optional)</em> — MT5 / crypto / Alpaca. Start with demo/testnet/paper.</li>
+  <li><strong>Telegram</strong> <em>(optional)</em> — signal + audit alerts.</li>
+</ol>
+<p>Everything lives under <code>~/.octopus/</code>. Broker keys are encrypted at rest and never leave your machine.</p>
+
+<h2 id="s3"><span class="n">3</span>Your first 10 minutes (no money, no accounts)</h2>
+<p>You don&rsquo;t need a broker — or even an API key. Open the live UI with <code>octopus deck</code>, then try:</p>
+<table>
+<tr><th>Command</th><th>What you learn</th></tr>
+<tr><td><code>octopus signal strategies</code></td><td>Which strategies work — and which don&rsquo;t (honest labels).</td></tr>
+<tr><td><code>octopus signal crypto</code></td><td>The one <strong>validated</strong> edge: the trend ensemble on BTC/ETH, with risk-based sizing.</td></tr>
+<tr><td><code>octopus signal validate BTC/USDT</code></td><td>The <strong>skeptic battery</strong> (random-entry control + walk-forward) on full history.</td></tr>
+<tr><td><code>octopus desk --tier lite BTC/USDT</code></td><td>Watch AI agents <strong>debate</strong> a trade (needs the key; ~$0.0005).</td></tr>
+<tr><td><code>octopus web</code></td><td>The same data in your browser at <code>localhost:8899</code>.</td></tr>
+</table>
+<div class="box tip"><p>💡 Run <code>octopus signal validate</code> on several markets and read the <em>p-values</em>. You&rsquo;ll see most &ldquo;strategies&rdquo; don&rsquo;t beat a coin flip — that scepticism <em>is</em> your edge. Trust only what clears the gate.</p></div>
+
+<h2 id="s4"><span class="n">4</span>The deck — your cockpit, tab by tab</h2>
+<p><code>octopus deck</code> is keyboard-driven. Press the letter to jump; <strong><code>k</code></strong> is the kill switch; <code>q</code> quits.</p>
+<table>
+<tr><th>Key</th><th>Tab</th><th>For</th></tr>
+<tr><td><code>d</code></td><td>📊 Dashboard</td><td>Setup status, strategies + validation, wheel, accounts.</td></tr>
+<tr><td><code>h</code></td><td>⚔ Hedge Desk</td><td>Run a multi-agent <strong>debate</strong> and watch it live.</td></tr>
+<tr><td><code>t</code></td><td>📈 Live Ticks</td><td>Real-time crypto prices, flashing per tick.</td></tr>
+<tr><td><code>s</code></td><td>🎯 Signals</td><td>Fire any strategy; see the risk-based size.</td></tr>
+<tr><td><code>b</code></td><td>🏆 Scoreboard</td><td>Every signal marked to market — winners <em>and</em> losers.</td></tr>
+<tr><td><code>w</code></td><td>🎡 Wheel</td><td>Options-income state machine.</td></tr>
+<tr><td><code>a</code></td><td>🤖 Autopilot</td><td>Live equity, open positions, arm/disarm, run a tick.</td></tr>
+<tr><td><code>i</code></td><td>🛡️ Auditor</td><td>Finds risk/ops issues; deep LLM review.</td></tr>
+<tr><td>—</td><td>🔬 Research</td><td>Propose strategies; each is auto-tested before paper.</td></tr>
+</table>
+
+<h2 id="s5"><span class="n">5</span>The honesty engine</h2>
+<p>Three mechanisms make Octopus trustworthy — lean on them:</p>
+<ul>
+  <li><strong>The validation gate</strong> — every strategy is judged against a <strong>random-entry control</strong> with matched time-in-market, out-of-sample, on full history. Can&rsquo;t beat random → labelled <strong>UNVALIDATED</strong>, never sold as an edge.</li>
+  <li><strong>The scoreboard</strong> — every signal logged and marked to market, <em>including losers</em>. No cherry-picking.</li>
+  <li><strong>The auditor</strong> — a daily review that flags operational dangers and proposes fixes, but <strong>never changes anything itself</strong>.</li>
+</ul>
+<p><strong>The strategies, honestly:</strong> <code>trend_ensemble</code>, <code>trend_breakout</code>, <code>donchian</code>, <code>regime_ladder</code> have a <strong>validated edge on crypto</strong> (and are defensive elsewhere). <code>ma_cross</code> and <code>rsi_meanrev</code> have <strong>no edge anywhere</strong> — kept for transparency, never traded as edges.</p>
+
+<h2 id="s6"><span class="n">6</span>Going autonomous — on paper first</h2>
+<p>Octopus trades itself on a built-in <strong>paper simulator</strong> that needs no broker account.</p>
+<pre><code>octopus trade setup     <span class="c"># pick "Paper simulator — crypto"; it recommends trend_ensemble</span>
+octopus trade status    <span class="c"># the mandate + equity</span>
+octopus trade tick      <span class="c"># run one pass and see what it would do</span></code></pre>
+<p>Each tick: <strong>manages open positions first</strong> (cut losses / take profit), then looks for new entries, sizes them under your <strong>risk mandate</strong> (risk %, 20% max-position cap), and places a <strong>bracketed</strong> order with a protective stop.</p>
+<p><strong>Always-on safety:</strong> a per-account <strong>daily-loss cap</strong>, and a <strong>global kill switch</strong> — a file (<code>~/.octopus/HALT</code>) tripped by <code>octopus trade halt</code>, the deck&rsquo;s <code>k</code> key, or the web button — that stops the loop from anywhere, even over SSH.</p>
+<div class="box tip"><p>💡 Let a paper mandate run for <em>weeks</em>. The point isn&rsquo;t a quick result — it&rsquo;s building an honest forward track record before any real money is involved.</p></div>
+
+<h2 id="s7"><span class="n">7</span>Connecting real brokers (still demo/paper)</h2>
+<pre><code>octopus link crypto     <span class="c"># Binance — use TESTNET keys</span>
+octopus link mt5        <span class="c"># Exness / FBS / IC via MetaApi — DEMO account</span>
+octopus link options    <span class="c"># Alpaca — PAPER keys</span></code></pre>
+<p>Octopus recommends the right engine per venue in <code>octopus trade setup</code>: crypto → <code>trend_ensemble</code>; stocks → <code>trend_ensemble</code>/<code>regime_ladder</code>; options → the Wheel. You can run <strong>multiple platforms at once</strong>, each with its own mode and strategy — prove it on all of them before risking a cent.</p>
+
+<h2 id="s8"><span class="n">8</span>The intelligence loop — maximum potential</h2>
+<p>A self-improving research pipeline that <strong>cannot overfit itself into the ground</strong>, because every machine-generated idea must pass the same validation gate.</p>
+<pre><code>PROPOSE   <span class="c">→ an LLM brainstorms ideas        (octopus research --auto)</span>
+   gate ▸ must beat a random-entry control OUT-OF-SAMPLE
+PAPER     <span class="c">→ survivors forward-test themselves (they appear in Autopilot)</span>
+   gate ▸ stay profitable on paper for 4+ weeks
+GRADUATE  <span class="c">→ flagged "ready to consider for live" (🎓, Telegram'd to you)</span>
+   gate ▸ a human decision — only you can do this
+LIVE      <span class="c">→ small, daily-loss-capped, kill-switchable</span></code></pre>
+<ul>
+  <li><code>octopus research BTC/USDT --auto</code> — the LLM proposes; each idea is tested; <strong>only survivors are auto-promoted to a paper mandate</strong>. Most are rejected — that&rsquo;s the gate working.</li>
+  <li><code>octopus improve --deep</code> — an Opus-grade audit; proposes <strong>SAFE-NOW vs GATED</strong> fixes, never auto-applies.</li>
+  <li>On a VPS the daemon does this for you: a <strong>weekly research sweep</strong> and a <strong>daily audit</strong> that Telegrams high-severity risks.</li>
+</ul>
+<div class="box tip"><p>💡 The LLM <strong>proposes</strong>; the validation harness <strong>disposes</strong>. That&rsquo;s the whole safety model — and why you can let it get creative without it betting your account on a hunch.</p></div>
+
+<h2 id="s9"><span class="n">9</span>Going live (the one deliberate step)</h2>
+<pre><code>octopus trade status                   <span class="c"># spot the 🎓 graduated candidate</span>
+octopus trade graduate research-&lt;id&gt;    <span class="c"># drafts a tiny, DISARMED live mandate</span>
+octopus trade enable live-&lt;id&gt;          <span class="c"># arm it deliberately</span></code></pre>
+<p>The graduate step drafts a <strong>disarmed</strong> tiny live mandate (small capital, 3% daily cap) and makes you type <code>LIVE</code> to confirm. It never auto-arms.</p>
+<div class="box warn"><p><strong>Live discipline:</strong> start with money you can afford to lose; keep the daily-loss cap tight and size small; know where the kill switch is. Only a <em>thin</em> edge has been validated (crypto trend) — treat live as a <strong>small-stakes experiment, not income.</strong></p></div>
+
+<h2 id="s10"><span class="n">10</span>Run it 24/7 on a VPS</h2>
+<p>Put <code>octopus trade run</code> on a small Linux VPS (full details in <code>VPS_RUNBOOK.md</code>). With systemd:</p>
+<pre><code><span class="c"># /etc/systemd/system/octopus-trader.service</span>
+[Service]
+ExecStart=/home/YOU/octopus/octopus trade run --interval 300
+Restart=always
+WorkingDirectory=/home/YOU/octopus
+User=YOU</code></pre>
+<pre><code>sudo systemctl enable --now octopus-trader
+journalctl -u octopus-trader -f      <span class="c"># watch it live</span></code></pre>
+<p>The daemon ticks every few minutes, audits itself daily, and runs a weekly research sweep — all honouring the kill switch you can trip from anywhere.</p>
+
+<h2 id="s11"><span class="n">11</span>The Wheel — options income (optional)</h2>
+<pre><code>octopus link options             <span class="c"># Alpaca paper keys</span>
+octopus wheel plan AAPL          <span class="c"># preview the put it would sell</span>
+octopus wheel positions          <span class="c"># CSP → assigned → covered-call state</span>
+octopus wheel run F SOFI         <span class="c"># run a cycle (paper)</span></code></pre>
+<p>The covered call is always sold <em>above</em> your cost basis, so it never locks in a loss.</p>
+
+<h2 id="s12"><span class="n">12</span>Config &amp; command cheat-sheet</h2>
+<p>Everything lives under <code>~/.octopus/</code>. Useful environment overrides:</p>
+<table>
+<tr><th>Variable</th><th>Default</th><th>Purpose</th></tr>
+<tr><td><code>OPENROUTER_API_KEY</code></td><td>—</td><td>LLM analyst, desk, auditor, researcher</td></tr>
+<tr><td><code>OCTOPUS_AUDITOR_MODEL</code></td><td>desk model</td><td>a powerful model for deep audits</td></tr>
+<tr><td><code>OCTOPUS_RESEARCH_INTERVAL_DAYS</code></td><td><code>7</code></td><td>weekly research-sweep cadence</td></tr>
+<tr><td><code>OCTOPUS_GRADUATION_WEEKS</code></td><td><code>4</code></td><td>paper-profit window before graduating</td></tr>
+<tr><td><code>OCTOPUS_TELEGRAM_BOT_TOKEN</code> / <code>_CHAT_ID</code></td><td>—</td><td>signal + audit alerts</td></tr>
+</table>
+<pre><code>octopus setup | deck | web
+octopus signal crypto | strategies | run &lt;strat&gt; &lt;inst&gt; | validate | scoreboard
+octopus desk --tier lite|standard|pro|overdrive
+octopus wheel positions | plan &lt;ticker&gt; | run
+octopus link mt5 | crypto | options       octopus link accounts
+octopus trade setup | status | tick | run | halt | resume | sweep | graduate &lt;id&gt;
+octopus improve [--deep] [--notify]        octopus research [pairs] [--auto]
+octopus validate &lt;trades.csv&gt;              octopus backtest "&lt;idea&gt;"</code></pre>
+
+<h2 id="s13"><span class="n">13</span>A recommended weekly routine</h2>
+<ol>
+  <li><strong>Monday — review.</strong> <code>octopus trade status</code> + <code>octopus improve</code>. Act on HIGH/MED audit findings; disarm anything unvalidated that&rsquo;s armed.</li>
+  <li><strong>Let research run.</strong> The weekly sweep proposes + paper-tests new ideas; check the 🔬 Research tab for survivors.</li>
+  <li><strong>Watch graduations.</strong> When a candidate hits 🎓, decide deliberately whether to draft a tiny live mandate.</li>
+  <li><strong>Mid-week — glance, don&rsquo;t fiddle.</strong> Open Autopilot or <code>octopus web</code>. Resist tweaking on a few days of noise — that&rsquo;s how edges get curve-fit away.</li>
+  <li><strong>Always</strong> keep live size small, the loss cap tight, and the kill switch one keystroke away.</li>
+</ol>
+
+<div class="foot">
+  <p>Full source &amp; the latest guide: <a href="https://github.com/Code-weaver1/octopus" target="_blank" rel="noopener">github.com/Code-weaver1/octopus</a></p>
+  <p style="margin-top:8px">Octopus · paper-first · validated-or-it-doesn&rsquo;t-trade · you hold the keys</p>
+  <p style="margin-top:8px" class="solo">✦ created by Solo-J ✦</p>
+  <p style="margin-top:8px">not financial advice</p>
+</div>
+
+</div>
+</body>
+</html>
