@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Octopus</title>
+<link rel="icon" href="/octopus.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #020204; color: #c0bfca; font-family: 'Outfit', sans-serif; font-size: 15px; line-height: 1.75; }
+  a { color: #D4A574; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .top-bar { border-bottom: 1px solid rgba(255,255,255,0.04); padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+  .top-bar svg { color: #D4A574; }
+  .top-bar span { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: 0.15em; font-size: 13px; color: #F0EDE8; }
+  .container { max-width: 560px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #F0EDE8; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 8px; }
+  .subtitle { color: #6B6B75; font-size: 14px; margin-bottom: 48px; font-family: 'JetBrains Mono', monospace; }
+  .back { display: inline-block; margin-bottom: 32px; color: #6B6B75; font-size: 13px; }
+  .back:hover { color: #D4A574; text-decoration: none; }
+  label { display: block; font-size: 12px; color: #8B8B95; margin: 18px 0 6px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }
+  input, textarea { width: 100%; background: #0F0F14; color: #F0EDE8; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px 14px; font-family: inherit; font-size: 15px; outline: none; transition: border-color 0.2s; }
+  input:focus, textarea:focus { border-color: #D4A574; }
+  textarea { resize: vertical; min-height: 140px; }
+  button { margin-top: 24px; background: #D4A574; color: #020204; border: 0; padding: 14px 28px; border-radius: 999px; font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer; transition: opacity 0.2s; }
+  button:hover { opacity: 0.9; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .status { margin-top: 18px; padding: 14px 18px; border-radius: 8px; font-size: 13px; }
+  .status.ok { background: rgba(98,196,114,0.08); border: 1px solid rgba(98,196,114,0.3); color: #62C472; }
+  .status.err { background: rgba(220,90,90,0.08); border: 1px solid rgba(220,90,90,0.3); color: #DC5A5A; }
+  .alt-routes { margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.04); font-size: 13px; color: #6B6B75; }
+  .alt-routes p { margin-bottom: 10px; }
+  .alt-routes a { color: #D4A574; }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+    <circle cx="16" cy="12" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <path d="M10 18 C6 22 4 28 6 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M16 18 C16 24 16 28 16 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M22 18 C26 22 28 28 26 30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <circle cx="14" cy="11" r="1" fill="currentColor"/><circle cx="18" cy="11" r="1" fill="currentColor"/>
+  </svg>
+  <span>OCTOPUS</span>
+</div>
+<div class="container">
+<a href="/" class="back">&larr; Back to home</a>
+
+<h1>Get in touch</h1>
+<p class="subtitle">We reply within 24 hours</p>
+
+<form id="contact-form">
+  <label for="name">Your name</label>
+  <input id="name" name="name" type="text" placeholder="Solomon" autocomplete="name" />
+
+  <label for="email">Email</label>
+  <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+
+  <label for="subject">Subject</label>
+  <input id="subject" name="subject" type="text" placeholder="What can we help with?" maxlength="200" />
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" required minlength="10" maxlength="5000" placeholder="Tell us what's on your mind..."></textarea>
+
+  <button type="submit" id="submit-btn">Send message</button>
+  <div id="status"></div>
+</form>
+
+<div class="alt-routes">
+  <p><strong>Already a customer?</strong> Use the in-app chat — your context is attached automatically.</p>
+  <p><strong>Email:</strong> <a href="mailto:support@theoctopusapp.com">support@theoctopusapp.com</a></p>
+  <p><strong>Pricing questions:</strong> See the <a href="/#pricing">pricing page</a> first — most are answered there.</p>
+</div>
+
+</div>
+
+<script>
+const form = document.getElementById('contact-form');
+const status = document.getElementById('status');
+const btn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  status.className = '';
+  status.textContent = '';
+
+  const data = {
+    name:    document.getElementById('name').value.trim(),
+    email:   document.getElementById('email').value.trim(),
+    subject: document.getElementById('subject').value.trim() || '(no subject)',
+    message: document.getElementById('message').value.trim(),
+  };
+
+  try {
+    // The server lives at /api/* on the same host (proxied), or on dev.theoctopusapp.com
+    const API_BASE = (window.location.host === 'theoctopusapp.com' || window.location.host === 'www.theoctopusapp.com')
+      ? 'https://dev.theoctopusapp.com/api'
+      : '/api';
+    const r = await fetch(API_BASE + '/support/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const result = await r.json();
+    if (r.ok && result.ok) {
+      status.className = 'status ok';
+      status.textContent = result.message || "Got it — we'll reply within 24 hours.";
+      form.reset();
+    } else {
+      status.className = 'status err';
+      status.textContent = result.detail || result.message || 'Could not send right now. Email us directly at support@theoctopusapp.com.';
+    }
+  } catch (err) {
+    status.className = 'status err';
+    status.textContent = 'Network error. Please email support@theoctopusapp.com directly.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send message';
+  }
+});
+</script>
+</body>
+</html>
