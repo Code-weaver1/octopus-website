@@ -179,8 +179,9 @@ octopus trade tick      <span class="c"># run one pass and see what it would do<
 
 <h2 id="s7"><span class="n">7</span>Connecting real brokers (still demo/paper)</h2>
 <pre><code>octopus link crypto     <span class="c"># Binance — use TESTNET keys</span>
-octopus link mt5        <span class="c"># Exness / FBS / IC via MetaApi — DEMO account</span>
+octopus link mt5        <span class="c"># Exness / FBS / IC — DEMO account</span>
 octopus link options    <span class="c"># Alpaca — PAPER keys</span></code></pre>
+<p><strong>All of it is free.</strong> Binance and Alpaca use their free native APIs. For MT5, <code>octopus link mt5</code> defaults to the <strong>free local-terminal path</strong>: the official <code>MetaTrader5</code> package drives an MT5 terminal running on the same machine (the Windows installer sets it up automatically), so there&rsquo;s no cloud middleman and your credentials never leave your machine. Notes: the <em>investor</em> password is enough for monitoring, autonomous trading needs the <em>master</em> password (stored only in the encrypted vault); for 24/7 MT5 use a <strong>Windows VPS</strong> — many brokers (incl. Exness) give qualifying accounts one free. A paid cloud option (MetaApi) exists only for the convenience of trading with your computer off. Octopus tags its orders with its own magic number and never touches positions it didn&rsquo;t open — your EAs and manual trades are left alone.</p>
 <p>Octopus recommends the right engine per venue in <code>octopus trade setup</code>: crypto → <code>trend_ensemble</code>; stocks → <code>trend_ensemble</code>/<code>regime_ladder</code>; options → the Wheel. You can run <strong>multiple platforms at once</strong>, each with its own mode and strategy — prove it on all of them before risking a cent.</p>
 
 <h2 id="s8"><span class="n">8</span>The intelligence loop — maximum potential</h2>
