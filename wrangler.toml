@@ -1,0 +1,11 @@
+# Cloudflare Pages config for octopus-web.
+# Binds the WAITLIST KV namespace so functions/api/waitlist.ts can store signups.
+# (The build command stays in the Pages dashboard; this only supplies output dir +
+#  bindings + compatibility date. The KV id is a resource identifier, not a secret.)
+name = "octopus-web"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-06-01"
+
+[[kv_namespaces]]
+binding = "WAITLIST"
+id = "dc7b58c51c3a46ba87cf36709abaecc5"
