@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+// Same-origin Cloudflare Pages Function (functions/api/waitlist.ts)
+const WAITLIST_URL = '/api/waitlist'
 
 export default function SignUp() {
   const { ref, isVisible } = useScrollReveal()
@@ -17,7 +18,7 @@ export default function SignUp() {
     setError('')
     setLoading(true)
     try {
-      const res = await fetch(`${API_URL}/api/waitlist`, {
+      const res = await fetch(WAITLIST_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim() }),
@@ -46,13 +47,15 @@ export default function SignUp() {
         }`}
       >
         <span className="font-mono text-xs tracking-[0.3em] text-octopus-gold/60 uppercase">
-          Get Started
+          Private Beta · Invite Only
         </span>
         <h2 className="font-display text-display-lg font-bold text-octopus-cream mt-4">
-          Ready to automate?
+          Join the waitlist
         </h2>
         <p className="font-body text-lg text-octopus-muted max-w-lg mx-auto mt-6">
-          Join the early access program. Start with the free tier — no credit card, no commitments.
+          Octopus is going invite-only while we build a <span className="text-octopus-cream">forward-proven</span>,
+          validated-or-it-doesn&rsquo;t-trade strategy service. Get on the list and we&rsquo;ll bring you in as
+          spots open — paper-first, you hold the keys.
         </p>
 
         {!submitted ? (
@@ -71,7 +74,7 @@ export default function SignUp() {
                 disabled={loading}
                 className="bg-octopus-gold text-octopus-void font-body font-semibold px-7 py-3.5 rounded-full hover:bg-octopus-amber transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,165,116,0.3)] flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-60"
               >
-                {loading ? 'Joining...' : 'Get Early Access'}
+                {loading ? 'Joining...' : 'Join the waitlist'}
                 {!loading && <ArrowRight size={16} />}
               </button>
             </form>
@@ -83,13 +86,13 @@ export default function SignUp() {
           <div className="mt-12 flex items-center justify-center gap-3 animate-fade-in">
             <CheckCircle2 size={20} className="text-emerald-400" />
             <span className="font-body text-octopus-cream">
-              You're on the list. We'll be in touch at <span className="text-octopus-gold">{email}</span>
+              You're on the list. We'll reach out at <span className="text-octopus-gold">{email}</span> as spots open.
             </span>
           </div>
         )}
 
         <p className="font-body text-xs text-octopus-muted/30 mt-6">
-          Free tier includes 1 platform connection and 20 actions/day. Upgrade anytime.
+          No spam, no credit card. We email you once — when your invite is ready.
         </p>
       </div>
     </section>

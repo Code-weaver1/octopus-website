@@ -60,10 +60,10 @@ export default function Hero() {
           style={{ animationDelay: '0.36s', animationFillMode: 'both' }}
         >
           <a
-            href="#download"
+            href="#signup"
             className="bg-octopus-gold text-octopus-void font-body font-semibold px-8 py-3.5 rounded-full hover:bg-octopus-amber transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,165,116,0.3)]"
           >
-            Get Octopus
+            Join the waitlist
           </a>
           <a
             href="#how-it-works"

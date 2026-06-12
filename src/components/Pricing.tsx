@@ -27,8 +27,8 @@ const tiers: Tier[] = [
       'Non-custodial — your broker, your keys, your data',
       'You pay only: your broker’s normal fees + your own LLM usage (often cents/day)',
     ],
-    cta: 'Install it',
-    href: '#download',
+    cta: 'Join the waitlist',
+    href: '#signup',
     style: 'filled',
   },
   {

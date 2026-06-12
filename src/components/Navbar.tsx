@@ -5,9 +5,9 @@ const navLinks = [
   { label: 'Features', href: '#features' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Why Octopus', href: '#why-octopus' },
-  { label: 'Guide', href: '/guide' },
+  { label: 'How it works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'Get it', href: '#download' },
+  { label: 'Waitlist', href: '#signup' },
 ]
 
 export default function Navbar() {
@@ -117,11 +117,11 @@ export default function Navbar() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <a
-            href="#download"
-            onClick={(e) => handleNavClick(e, '#download')}
+            href="#signup"
+            onClick={(e) => handleNavClick(e, '#signup')}
             className="font-body text-sm font-semibold bg-octopus-gold text-octopus-void px-5 py-2 rounded-full hover:bg-octopus-amber transition-all duration-300 hover:shadow-[0_0_20px_rgba(212,165,116,0.25)]"
           >
-            Get Octopus
+            Join waitlist
           </a>
         </div>
 
@@ -160,8 +160,8 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#download"
-            onClick={(e) => handleNavClick(e, '#download')}
+            href="#signup"
+            onClick={(e) => handleNavClick(e, '#signup')}
             className="mt-4 inline-flex justify-center font-body text-sm font-semibold bg-octopus-gold text-octopus-void px-6 py-3 rounded-full hover:bg-octopus-amber transition-all duration-300"
             style={{
               transitionDelay: mobileOpen ? `${navLinks.length * 60}ms` : '0ms',
@@ -169,7 +169,7 @@ export default function Navbar() {
               transform: mobileOpen ? 'translateY(0)' : 'translateY(8px)',
             }}
           >
-            Get Started
+            Join the waitlist
           </a>
         </div>
       </div>
